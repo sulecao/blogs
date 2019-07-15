@@ -1,0 +1,105 @@
+##发布/订阅模式
+
+```
+// EventTarget 类型有一个单独的属性 handlers，用于储存事件处理程序。
+			function EventTarget() {
+				this.handlers = {};
+			}
+			EventTarget.prototype = {
+				constructor: EventTarget,
+//addHandler()方法接受两个参数：事件类型和用于处理该事件的函数。
+//当调用该方法时，会进行一次检查，看看 handlers 属性中是否已经存在一个针对该事件类型的数组；
+//如果没有，则创建一个新的。然后使用 push()将该处理程序添加到数组的末尾.
+//形成的handlers的数据结构是{type:[handler]}
+				addHandler: function(type, handler) {
+					if (typeof this.handlers[type] == "undefined") {
+						this.handlers[type] = [];
+					}
+					this.handlers[type].push(handler);
+				},
+//fire()函数接受一个单独的参数，是一个至少包含 type属性的对象。
+//fire()方法先给 event 对象设置一个 target 属性，如果它尚未被指定的话。
+//然后它就查找对应该事件类型的一组处理程序，调用各个函数，并给出 event 对象。
+//因为这些都是自定义事件，所以 event 对象上还需要的额外信息由你自己决定。
+				fire: function(event) {
+					if (!event.target) {
+						event.target = this;
+					}
+					if (this.handlers[event.type] instanceof Array) {
+						var handlers = this.handlers[event.type];
+						for (var i = 0, len = handlers.length; i < len; i++) {
+							handlers[i](event);
+						}
+					}
+				},
+//removeHandler方法接受两个参数： 事件类型和用于处理该事件的函数。
+//搜索事件处理程序的数组找到要删除的处理程序的位置。 如果找到了， 则使用 break操作符退出for 循环。
+//然后使用 splice() 方法将该项目从数组中删除。
+				removeHandler: function(type, handler) {
+					if (this.handlers[type] instanceof Array) {
+						var handlers = this.handlers[type];
+						for (var i = 0, len = handlers.length; i < len; i++) {
+							if (handlers[i] === handler) {
+								break;
+							}
+						}
+						handlers.splice(i, 1);
+					}
+				}
+			};
+// 定义事件触发的函数，接受传过来的event对象
+			function handleMessage(event) {
+				alert("Message received: " + event.message);
+			}
+```
+使用
+```
+			//创建一个新对象
+			var target = new EventTarget();
+			//添加一个事件处理程序
+			target.addHandler("message", handleMessage);
+			//触发事件
+			target.fire({
+				type: "message",
+				message: "Hello world!"
+			});
+			//删除事件处理程序
+			target.removeHandler("message", handleMessage);
+```
+
+
+##观察者模式
+定义
+```
+class Subject{
+//有个数组用于添加观察者
+  constructor(){
+    this.subs = [];
+  }
+//添加观察者的方法
+  addSub(sub){
+    this.subs.push(sub);
+  }
+//广播方法，遍历观察者数组后调用他们的update方法：
+  notify(){
+    this.subs.forEach(sub=> {
+      sub.update();
+    });
+  }
+}
+//观察者有个update方法：
+class Observer{
+  update(){
+    console.log('update');
+  }
+}
+```
+使用
+```
+let subject = new Subject();
+let ob = new Observer();
+//目标添加观察者了
+subject.addSub(ob);
+//目标发布消息调用观察者的更新方法,所有观察者都触发了更新方法。
+subject.notify();   
+```
