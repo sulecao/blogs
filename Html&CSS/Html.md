@@ -1,3 +1,11 @@
+单独设置图片宽高是按等比例调整的，如果要更改比例可以同时设置宽高。
+
+表格
+
+设置表格高度和宽度
+
+设置表格边框
+
 cellspacing 单元格与边框的距离
 cellpadding 单元格内容与边框距离
 rowspan 用来合并行单元格
@@ -5,9 +13,11 @@ rowspan 用来合并行单元格
 colspan用来合并列单元格
 <td colspan="2">D3</td>
 表单
+
 ```
 <form  method="post"   action="save.php" enctype=">
 </form>
+input框要加name属性
 ```
 autofocus 自动获得焦点
 multiple 多文件上传
