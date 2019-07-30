@@ -1,20 +1,25 @@
 #### DOM(document object model)文档对象模型
 
+![1564499829807](C:\Users\asus\AppData\Roaming\Typora\typora-user-images\1564499829807.png)
+
 DOM把html当做一个文档树,文档所有内容都可称为节点,标签称为元素，根元素html,根据节点找到父节点，子节点，兄弟节点
 
+#### 获取节点
+
 ```javascript
-document.getElementById("btn"); //通过ID获取某个元素，所有浏览器兼容（ie7会把表单name当id使用）
-[context].getElementsByClassName //通过class类名获取,返回数组,不支持IE8及以下
-[context].getElementsByTagName //通过标签名获取,返回数组
+document.getElementById("btn"); //通过ID获取某个元素，如果没有返回null
+[context].getElementsByClassName //通过class类名获取,返回伪数组
+[context].getElementsByTagName //通过标签名获取,返回伪数组
 document.getElementsByName //通过name获取,返回数组,很少用,所有浏览器兼容,一般用来操作表单元素
 document.body //获取整个body对象
 document.all //获取所有标签
-//下面两个方法都是用document对象来调用，都是传递一个选择器字符串作为参数，
+//下面两个方法都是用document对象来调用，传递一个选择器字符串作为参数，
 //会自动根据选择器字符串去网页中查找元素。
-document.querySelector()  //只会返回找到的第一个元素
-document.querySelectorAll()//返回所有符合条件的元素。返回数组。
+document.querySelector('#id')  //只会返回找到的第一个元素
+document.querySelectorAll('.class')//返回所有符合条件的元素。返回数组。
 ```
-###节点关系
+#### 节点关系
+
 ```javascript
 someNode.childNodes[0] //表示当前节点的第一个子节点，类数组数据
 someNode.firstChild //表示当前节点的第一个子节点
@@ -25,7 +30,8 @@ someNode.nextSibling //表示当前节点的后一个兄弟节点
 someNode.hasChildNodes()// 判断是否有子节点，返回布尔值
 someNode.ownerDocument //表示整个文档的文档节点，即最顶端。
 ```
-操作节点
+#### 操作节点
+
 ```javascript
 var li = document.createElement("li")
 var text = document.createTextNode("广州")
@@ -50,7 +56,8 @@ getComputedStyle传递元素获得一个对象封装了元素的属性，第二�
 alert(getComputedStyle(box1, null).width)
 box1.currentStyle.width （只有ie支持）
 ```
-###获取可见宽度和高度
+#### 获取可见宽度和高度
+
 ```javascript
 box1.clientHeight //元素的客户区大小，包括内容区和padding，不包括边框和margin
 box1.clientWidth
