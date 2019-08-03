@@ -12,6 +12,9 @@ rowspan 用来合并行单元格
 <td rowspan="2">B4</td>
 colspan用来合并列单元格
 <td colspan="2">D3</td>
+
+![1564812232541](C:\Users\asus\AppData\Roaming\Typora\typora-user-images\1564812232541.png)
+
 表单
 
 ```
