@@ -5,14 +5,14 @@
 var login = Vue.extend({
       template: '<h1>登录</h1>'
     });
-Vue.component('login', login);
+Vue.component('login', login);//全局组件
 ```
 2.直接使用 Vue.component 方法：
 
 ```javascript
 Vue.component('register', {
       template: '<h1>注册</h1>'
-    });
+    });//全局组件
 ```
 3.将模板字符串，定义到template标签中：
 ```vue
@@ -22,12 +22,25 @@ Vue.component('register', {
 //使用 Vue.component 来绑定模板
 Vue.component('account', {
       template: '#tmpl'
-    });
+    });//全局组件
 ```
+局部组件
+
+![1570188836130](C:\Users\asus\AppData\Roaming\Typora\typora-user-images\1570188836130.png)
+
+![1570188812370](C:\Users\asus\AppData\Roaming\Typora\typora-user-images\1570188812370.png)
+
+![1570190754570](C:\Users\asus\AppData\Roaming\Typora\typora-user-images\1570190754570.png)
+
+如果想要各个复用的组件用同一个data
+
+![1570192772247](C:\Users\asus\AppData\Roaming\Typora\typora-user-images\1570192772247.png)
+
 ##### is属性
 
 使用:is属性来切换不同的子组件,is绑定的变量对应的值为组件的名称
 通过mode="out-in"设置组件切换时的进出效果。
+
 ```vue
 <transition mode="out-in">
 <component :is="comName"></component>
@@ -63,6 +76,12 @@ Vue.component('child', {
 ```
 不应在一个子组件内部改变 prop。
 在 JavaScript 中对象和数组是通过引用传入的，所以对于一个数组或对象类型的 prop 来说，在子组件中改变这个对象或数组本身将会影响到父组件的状态。
+
+![1570196718527](C:\Users\asus\AppData\Roaming\Typora\typora-user-images\1570196718527.png)
+
+绑定不能使用驼峰命名？
+
+![1570197115769](C:\Users\asus\AppData\Roaming\Typora\typora-user-images\1570197115769.png)
 
 #### 子组件向父组件传值  
 
@@ -100,7 +119,17 @@ Vue.component('button-counter', {
 this.$emit('update:title', newTitle)
 ```
 
+$children parent ref root
+
+
+
 #### 插槽
+
+![1570258130365](C:\Users\asus\AppData\Roaming\Typora\typora-user-images\1570258130365.png)
+
+![1570259353029](C:\Users\asus\AppData\Roaming\Typora\typora-user-images\1570259353029.png)
+
+![1570259710128](C:\Users\asus\AppData\Roaming\Typora\typora-user-images\1570259710128.png)
 
 缩写字符 #，v-slot:header 可以被重写为 #header
 实现将父组件里分发内容给子组件
@@ -176,3 +205,5 @@ this.$emit('update:title', newTitle)
   <component v-bind:is="currentTabComponent"></component>
 </keep-alive>
 ```
+
+# [vue] - provide / inject
